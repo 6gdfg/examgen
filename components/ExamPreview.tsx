@@ -14,31 +14,36 @@ const ExamPreview: React.FC<ExamPreviewProps> = ({ markdown, metadata }) => {
     <div className="w-full flex justify-center print:block print:w-full">
       {/* 
         A4 Paper Container 
-        Standard A4 is 210mm x 297mm.
-        Margins are handled inside to emulate the physical paper look on screen.
+        Standard A4 is 210mm wide.
+        Using min-h instead of h allows content to expand the paper vertically if it exceeds one page 
+        (though printed output pages are handled by the browser).
       */}
       <div 
         className={`
           print-container
           bg-white shadow-2xl print:shadow-none 
-          w-[210mm] min-h-[297mm] relative flex flex-col
+          w-[210mm] min-h-[297mm] h-auto
+          relative flex flex-col
           text-black
-          px-[25mm] py-[15mm] /* Adjusted padding */
+          px-[25mm] py-[15mm]
+          box-border
         `}
       >
         {/* Authentic Exam Header */}
-        <header className="text-center mb-4 select-none font-hei tracking-widest">
-          {/* School & Subtitle - SimHei, Larger but Normal Weight */}
-          <h1 className="text-2xl text-black leading-snug mb-2">
-            {metadata.school} {metadata.subtitle}
-          </h1>
+        <header className="text-center mb-4 select-none font-hei tracking-widest border-b-0 border-black pb-2">
+          {/* School & Subtitle - SimHei, Normal Weight, combined line */}
+          <div className="flex flex-col items-center justify-center mb-3">
+             <h1 className="text-2xl text-black font-normal leading-snug">
+               {metadata.school} {metadata.subtitle}
+             </h1>
+          </div>
           
-          {/* Main Title (Subject) - SimHei, Slightly Smaller than School, Normal Weight */}
-          <h2 className="text-xl mt-1 mb-3 text-black">
+          {/* Main Title (Subject) - SimHei, Slightly Smaller, Normal Weight */}
+          <h2 className="text-xl mb-3 text-black font-normal">
             {metadata.title}
           </h2>
           
-          {/* Meta Info: Combined Parentheses, Songti */}
+          {/* Meta Info: Songti */}
           <div className="flex justify-center items-center font-song text-[15px] mb-1">
             <span>(考试时间: {metadata.timeLimit} &nbsp; 卷面满分: {metadata.totalScore})</span>
           </div>
@@ -47,11 +52,6 @@ const ExamPreview: React.FC<ExamPreviewProps> = ({ markdown, metadata }) => {
             <span>命题人: {metadata.setter}</span>
             <span>审题人: {metadata.reviewer}</span>
           </div>
-
-          {/* Student Info Fields - kept minimal */}
-          {metadata.studentFields && (
-             <div className="mt-2" />
-          )}
         </header>
 
         {/* Markdown Content Render */}
