@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ExamForge - Professional Exam Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- KaTeX CSS for Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap');
+      
+      :root {
+        /* 
+           Authentic Chinese Exam Font Stack 
+        */
+        --font-song: "SimSun", "Songti SC", "STSong", "Noto Serif SC", serif;
+        --font-hei: "SimHei", "Heiti SC", "DengXian", "Noto Sans SC", sans-serif;
+        --font-math: "Times New Roman", serif;
+      }
+
+      body {
+        background-color: #525659;
+      }
+
+      .font-song {
+        font-family: var(--font-song);
+      }
+      
+      .font-hei {
+        font-family: var(--font-hei);
+      }
+      
+      .font-math {
+        font-family: var(--font-math);
+      }
+
+      /* 
+         Special Class for Section Intros and Bold Text
+         This is CRITICAL:
+         1. It sets weight to 900 (Heavy).
+         2. It lists "Times New Roman" FIRST. 
+         3. Browser renders numbers/latin in Times (Serif Bold) and Chinese in SimSun (Serif Bold).
+         This achieves the exact look of "Standard Chinese Test Paper" bolding.
+      */
+      .section-intro-bold {
+        font-family: "Times New Roman", "SimSun", serif;
+        font-weight: 900; 
+      }
+      
+      /* LaTeX Font Adjustments */
+      .katex {
+        font-size: 1.15em; 
+        font-family: "Times New Roman", serif !important;
+      }
+
+      /* Multiple Choice Option Layout Helper */
+      .mcq-options {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 2rem;
+        row-gap: 0.5rem;
+      }
+
+      /* Print Styles */
+      @media print {
+        @page {
+          size: A4 portrait;
+          margin: 15mm 20mm; 
+        }
+        body {
+          background: white;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .no-print {
+          display: none !important;
+        }
+        .print-container {
+          margin: 0 !important;
+          padding: 0 !important;
+          box-shadow: none !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          color: black !important; 
+        }
+      }
+      
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1; 
+        border-radius: 4px;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react-markdown": "https://aistudiocdn.com/react-markdown@^10.1.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "rehype-katex": "https://aistudiocdn.com/rehype-katex@^7.0.1",
+    "remark-math": "https://aistudiocdn.com/remark-math@^6.0.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
