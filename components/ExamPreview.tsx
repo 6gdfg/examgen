@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
+import remarkBreaks from 'remark-breaks';
 import rehypeKatex from 'rehype-katex';
 import { ExamMetadata } from '../types';
 
@@ -60,7 +61,7 @@ const ExamPreview: React.FC<ExamPreviewProps> = ({ markdown, metadata }) => {
            ${metadata.columns === 2 ? 'columns-2 gap-10 [column-rule:1px_solid_#e5e7eb]' : ''}
         `}>
           <ReactMarkdown
-            remarkPlugins={[remarkMath]}
+            remarkPlugins={[remarkMath, remarkBreaks]}
             rehypePlugins={[rehypeKatex]}
             components={{
               // Section Headers (Example: 一、填空题)
