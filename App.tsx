@@ -54,9 +54,9 @@ const App: React.FC = () => {
 
   // AI Configuration State
   const [aiConfig, setAiConfig] = useState<AIConfig>({
-    baseUrl: "https://new.281182.xyz/v1", 
+    baseUrl: "https://api.navy/v1", 
     apiKey: getEnvApiKey(), // Initialize from environment
-    model: "gpt-4o-mini"
+    model: "gemini-2.5-pro"
   });
   
   const [showAiSettings, setShowAiSettings] = useState(false);
