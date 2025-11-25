@@ -1,3 +1,4 @@
+
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
@@ -31,6 +32,11 @@ const ExamPreview: React.FC<ExamPreviewProps> = ({ markdown, metadata }) => {
       {/* 
         A4 Paper Container 
         Standard A4 is 210mm wide.
+        
+        CRITICAL PRINT FIX:
+        - print:min-h-0: Removes minimum height constraint
+        - print:h-auto: Allows container to expand infinitely for pagination
+        - print:shadow-none: Removes aesthetic shadow
       */}
       <div 
         className={`
@@ -41,6 +47,7 @@ const ExamPreview: React.FC<ExamPreviewProps> = ({ markdown, metadata }) => {
           text-black
           px-[25mm] py-[15mm]
           box-border
+          print:block print:w-full print:px-0 print:py-0
         `}
         style={{
           // Force the base font stack at the container level to be absolutely sure
@@ -83,7 +90,7 @@ const ExamPreview: React.FC<ExamPreviewProps> = ({ markdown, metadata }) => {
 
         {/* Markdown Content Render */}
         <div className={`
-           flex-1 text-justify text-black
+           flex-1 text-justify text-black print:flex-none print:block
            ${metadata.columns === 2 ? 'columns-2 gap-10 [column-rule:1px_solid_#e5e7eb]' : ''}
         `}>
           <ReactMarkdown
@@ -102,7 +109,7 @@ const ExamPreview: React.FC<ExamPreviewProps> = ({ markdown, metadata }) => {
               
               // Emphasis/Strong 
               // Used for: "本大题..." descriptions AND Big Question Intros "17. (本题...)"
-              // section-intro-bold applies weight 900
+              // section-intro-bold applies weight 700 + text-shadow hack in print
               strong: ({node, ...props}) => <span className="section-intro-bold mx-0.5" {...props} />,
               
               // Ordered Lists (Questions)

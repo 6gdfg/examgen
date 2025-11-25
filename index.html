@@ -13,8 +13,7 @@
       :root {
         /* 
            Authentic Chinese Exam Font Stack 
-           We use unquoted names for generic families and quoted for specific ones to maximize compatibility.
-           "Times New Roman" is FIRST. This is critical.
+           "Times New Roman" is FIRST to ensure all Latin/Numbers use it.
         */
         --font-song: "Times New Roman", "SimSun", "Songti SC", "STSong", "Noto Serif SC", serif;
         --font-hei: "SimHei", "Heiti SC", "DengXian", "Noto Sans SC", sans-serif;
@@ -34,17 +33,13 @@
         font-family: var(--font-hei);
       }
       
-      .font-math {
-        font-family: var(--font-math);
-      }
-
       /* 
-         Special Class for Section Intros and Bold Text
-         Sets weight to 900 (Heavy) for standard "SimSun Bold" look.
+         Special Class for Section Intros and Bold Text.
+         We use a text-shadow hack in print to ensure it looks bold.
       */
       .section-intro-bold {
         font-family: var(--font-song);
-        font-weight: 900; 
+        font-weight: 700; /* Standard Bold */
       }
       
       /* LaTeX Font Adjustments */
@@ -61,38 +56,73 @@
         row-gap: 0.5rem;
       }
 
-      /* Print Styles */
+      /* 
+        Global Text Justification 
+        Crucial for the "neat block" look of exam papers.
+      */
+      p, li, .prose {
+        text-align: justify;
+        text-justify: inter-ideograph;
+      }
+
+      /* --- CRITICAL PRINT STYLES --- */
       @media print {
         @page {
           size: A4 portrait;
-          margin: 15mm 20mm; 
+          margin: 20mm 20mm; /* Standard Exam Margins */
         }
-        body {
-          background: white;
-          -webkit-print-color-adjust: exact;
-          print-color-adjust: exact;
+        
+        /* 1. Reset Height Constraints to allow Pagination */
+        html, body, #root {
+          height: auto !important;
+          min-height: auto !important;
+          overflow: visible !important;
+          background: white !important;
         }
+
+        /* 2. Hide UI Elements */
         .no-print {
           display: none !important;
         }
+
+        /* 3. Main Container Override */
         .print-container {
           margin: 0 !important;
-          padding: 0 !important;
+          padding: 0 !important; /* Margins handled by @page */
+          border: none !important;
           box-shadow: none !important;
           width: 100% !important;
           max-width: 100% !important;
-          color: black !important;
-          /* CRITICAL FIX for PAGINATION: Remove height constraints */
-          min-height: unset !important;
+          
+          /* CRITICAL: Use block layout to allow page breaks */
+          display: block !important; 
           height: auto !important;
+          min-height: auto !important;
+          overflow: visible !important;
         }
-        /* CRITICAL FIX for BOLD TEXT: Force font weight */
-        .section-intro-bold {
-          font-weight: 900 !important;
+
+        /* 4. Bold Font Hack for PDF Export */
+        .section-intro-bold, strong, b {
+          font-weight: bold !important;
+          /* This shadow tricks the PDF renderer into thickening the strokes */
+          text-shadow: 0.2px 0 0 currentColor, -0.1px 0 0 currentColor !important;
         }
-        /* Improve page break behavior */
-        li, p {
-           page-break-inside: avoid;
+        
+        /* 5. Page Break Rules */
+        h1, h2, h3, .section-intro-bold {
+          page-break-after: avoid;
+        }
+        li {
+          page-break-inside: avoid;
+        }
+        img {
+          page-break-inside: avoid;
+        }
+        
+        /* 6. Typography adjustments for print */
+        p, li {
+          font-size: 10.5pt !important; /* Standard 'Wuhao' size */
+          line-height: 1.6 !important;
         }
       }
       
@@ -109,13 +139,9 @@
       }
     </style>
     <script>
-      // Polyfill for process.env to prevent crashes in browser environments without a bundler
+      // Polyfill for process.env
       if (typeof window !== 'undefined' && !window.process) {
-        window.process = {
-          env: {
-            API_KEY: "" 
-          }
-        };
+        window.process = { env: { API_KEY: "" } };
       }
     </script>
   <script type="importmap">

@@ -88,7 +88,8 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-[#525659] text-gray-800 font-sans">
+    // CRITICAL FIX: print:h-auto print:overflow-visible releases the layout lock for pagination
+    <div className="flex h-screen w-full overflow-hidden bg-[#525659] text-gray-800 font-sans print:h-auto print:overflow-visible print:bg-white">
       
       {/* Left Sidebar - Editor & Config (Hidden on Print) */}
       <div 
@@ -348,7 +349,8 @@ const App: React.FC = () => {
       </button>
 
       {/* Main Preview Area */}
-      <div className="flex-1 relative flex flex-col h-full overflow-hidden bg-[#525659]">
+      {/* CRITICAL FIX: print:overflow-visible and print:h-auto ensure all content renders */}
+      <div className="flex-1 relative flex flex-col h-full overflow-hidden bg-[#525659] print:bg-white print:h-auto print:overflow-visible print:block">
         
         {/* Top Bar (Actions) */}
         <div className="h-14 bg-[#323639] border-b border-black flex items-center justify-between px-6 shadow-md z-10 no-print shrink-0">
@@ -368,7 +370,7 @@ const App: React.FC = () => {
         </div>
 
         {/* Preview Canvas */}
-        <div className="flex-1 overflow-y-auto w-full relative flex flex-col items-center py-10 print:p-0 print:overflow-visible custom-scrollbar">
+        <div className="flex-1 overflow-y-auto w-full relative flex flex-col items-center py-10 print:p-0 print:overflow-visible custom-scrollbar print:h-auto print:block">
            <ExamPreview markdown={markdown} metadata={metadata} />
            <div className="h-10 shrink-0 no-print"></div> {/* Bottom spacer */}
         </div>
