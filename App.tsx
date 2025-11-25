@@ -36,7 +36,7 @@ const App: React.FC = () => {
   // AI Configuration State
   const [aiConfig, setAiConfig] = useState<AIConfig>({
     provider: 'gemini', // Default to Gemini as per request
-    baseUrl: "https://api-proxy.me/gemini", 
+    baseUrl: "https://gpt-load-latest-5kix.onrender.com/proxy/gemini2", 
     apiKey: "", // Removed environment variable loading
     model: "gemini-1.5-flash"
   });
@@ -53,7 +53,7 @@ const App: React.FC = () => {
       ...prev,
       provider,
       // Set defaults when switching
-      baseUrl: provider === 'gemini' ? "https://api-proxy.me/gemini" : "",
+      baseUrl: provider === 'gemini' ? "https://gpt-load-latest-5kix.onrender.com/proxy/gemini2" : "",
       model: provider === 'gemini' ? "gemini-1.5-flash" : "gpt-4o-mini"
     }));
   };
