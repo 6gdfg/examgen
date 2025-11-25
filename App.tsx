@@ -16,7 +16,7 @@ import {
 import ExamPreview from './components/ExamPreview';
 import Button from './components/Button';
 import { ExamMetadata, DEFAULT_MARKDOWN } from './types';
-import { generateExamContent, AIConfig } from './services/openaiService';
+import { generateExamContent, AIConfig } from './services/aiService';
 
 const App: React.FC = () => {
   const [markdown, setMarkdown] = useState<string>(DEFAULT_MARKDOWN);

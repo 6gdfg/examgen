@@ -81,7 +81,18 @@
           box-shadow: none !important;
           width: 100% !important;
           max-width: 100% !important;
-          color: black !important; 
+          color: black !important;
+          /* CRITICAL FIX for PAGINATION: Remove height constraints */
+          min-height: unset !important;
+          height: auto !important;
+        }
+        /* CRITICAL FIX for BOLD TEXT: Force font weight */
+        .section-intro-bold {
+          font-weight: 900 !important;
+        }
+        /* Improve page break behavior */
+        li, p {
+           page-break-inside: avoid;
         }
       }
       
