@@ -13,8 +13,10 @@
       :root {
         /* 
            Authentic Chinese Exam Font Stack 
+           We use unquoted names for generic families and quoted for specific ones to maximize compatibility.
+           "Times New Roman" is FIRST. This is critical.
         */
-        --font-song: "SimSun", "Songti SC", "STSong", "Noto Serif SC", serif;
+        --font-song: "Times New Roman", "SimSun", "Songti SC", "STSong", "Noto Serif SC", serif;
         --font-hei: "SimHei", "Heiti SC", "DengXian", "Noto Sans SC", sans-serif;
         --font-math: "Times New Roman", serif;
       }
@@ -23,6 +25,7 @@
         background-color: #525659;
       }
 
+      /* Utility classes for fonts */
       .font-song {
         font-family: var(--font-song);
       }
@@ -37,14 +40,10 @@
 
       /* 
          Special Class for Section Intros and Bold Text
-         This is CRITICAL:
-         1. It sets weight to 900 (Heavy).
-         2. It lists "Times New Roman" FIRST. 
-         3. Browser renders numbers/latin in Times (Serif Bold) and Chinese in SimSun (Serif Bold).
-         This achieves the exact look of "Standard Chinese Test Paper" bolding.
+         Sets weight to 900 (Heavy) for standard "SimSun Bold" look.
       */
       .section-intro-bold {
-        font-family: "Times New Roman", "SimSun", serif;
+        font-family: var(--font-song);
         font-weight: 900; 
       }
       
@@ -103,8 +102,6 @@
       if (typeof window !== 'undefined' && !window.process) {
         window.process = {
           env: {
-            // In a real Vercel deployment with Vite, these would be replaced at build time.
-            // For raw deployment, this prevents the "process is not defined" crash.
             API_KEY: "" 
           }
         };
